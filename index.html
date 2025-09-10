@@ -5,127 +5,115 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creepy Stories</title>
 <style>
-    body {
-        background-color: #111;
-        color: #eee;
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        position: relative;
-        overflow-x: hidden;
-    }
+body {
+    background-color: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
 
-    h1 {
-        text-align: center;
-        color: #ff4d4d;
-    }
+h1 {
+    text-align: center;
+    color: #ff4d4d;
+}
 
-    #languageSelector, #randomStory {
-        display: block;
-        margin: 10px auto;
-        padding: 5px;
-        font-size: 16px;
-    }
+#languageSelector, #randomStory {
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 16px;
+}
 
-    ul {
-        list-style: none;
-        padding: 0;
-    }
+ul {
+    list-style: none;
+    padding: 0;
+}
 
-    li {
-        background-color: #222;
-        margin: 10px 0;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeIn 0.5s forwards;
-        animation-delay: calc(var(--i) * 0.1s);
-    }
+li {
+    background-color: #222;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s forwards;
+    animation-delay: calc(var(--i) * 0.1s);
+}
 
-    li:hover {
-        background-color: #444;
-    }
+li:hover {
+    background-color: #444;
+}
 
-    #storyContent {
-        display: none;
-        margin-top: 20px;
-        background-color: #222;
-        padding: 20px;
-        border-radius: 8px;
-        position: relative;
-        z-index: 2;
-    }
+#storyContent {
+    display: none;
+    margin-top: 20px;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 2;
+}
 
-    #storyContent img {
-        max-width: 50%;
-        height: auto;
-        display: block;
-        margin: 0 auto 15px auto;
-        border-radius: 8px;
-    }
+#storyContent img {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px auto;
+    border-radius: 8px;
+}
 
-    #storyContent img:hover {
-        transform: scale(1.05);
-        filter: brightness(0.8);
-    }
+.backButton {
+    margin-top: 15px;
+    cursor: pointer;
+    color: #ff4d4d;
+    text-decoration: underline;
+}
 
-    .backButton {
-        margin-top: 15px;
-        cursor: pointer;
-        color: #ff4d4d;
-        text-decoration: underline;
-    }
+p.storyParagraph {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s forwards;
+    text-shadow: 0 0 5px #ff4d4d;
+}
 
-    @keyframes fadeIn {
-        to { opacity: 1; transform: translateY(0); }
-    }
+@keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    /* Magla efekt */
-    body::before {
-        content: '';
-        position: fixed;
-        top:0; left:0;
-        width:100%; height:100%;
-        background: url('images/fog.png') repeat;
-        opacity: 0.2;
-        pointer-events: none;
-        animation: fogMove 60s linear infinite;
-        z-index: 1;
-    }
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); text-shadow: 0 0 0px #ff4d4d; }
+    50% { opacity: 1; transform: translateY(0); text-shadow: 0 0 10px #ff4d4d; }
+    100% { opacity: 1; transform: translateY(0); text-shadow: 0 0 3px #ff4d4d; }
+}
 
-    @keyframes fogMove {
-        0% { background-position: 0 0; }
-        100% { background-position: 1000px 0; }
-    }
+body::before {
+    content: '';
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: url('images/fog.png') repeat;
+    opacity: 0.2;
+    pointer-events: none;
+    animation: fogMove 60s linear infinite;
+    z-index: 1;
+}
 
-    /* Mobilna optimizacija */
-    @media only screen and (max-width: 600px) {
-        #storyContent img {
-            max-width: 90%;
-            margin-bottom: 15px;
-        }
+@keyframes fogMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 1000px 0; }
+}
 
-        li {
-            padding: 12px;
-            font-size: 14px;
-        }
-
-        #languageSelector, #randomStory {
-            width: 90%;
-            font-size: 14px;
-        }
-
-        #storyText {
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
-        body {
-            padding: 10px;
-        }
-    }
+@media only screen and (max-width: 600px) {
+    #storyContent img { max-width: 90%; margin-bottom: 15px; }
+    li { padding: 12px; font-size: 14px; }
+    #languageSelector, #randomStory { width: 90%; font-size: 14px; }
+    #storyText { font-size: 15px; line-height: 1.5; }
+    body { padding: 10px; }
+}
 </style>
 </head>
 <body>
@@ -150,9 +138,9 @@
     <h2 id="storyTitle"></h2>
     <div class="backButton" onclick="showList()">← Back to Story List</div>
     <img id="storyImage" src="" alt="">
-    <p id="storyText"></p>
+    <div id="storyText"></div>
     <div class="backButton" onclick="showList()">← Back to Story List</div>
-    <audio id="storyAudio" loop></audio>
+    <audio id="storyAudio" loop controls></audio>
 </div>
 
 <script>
@@ -162,31 +150,28 @@ let currentLanguage = 'en';
 const storyList = document.getElementById('storyList');
 const storyContent = document.getElementById('storyContent');
 const storyTitle = document.getElementById('storyTitle');
-const storyText = document.getElementById('storyText');
+const storyTextDiv = document.getElementById('storyText');
 const storyImage = document.getElementById('storyImage');
 const languageSelector = document.getElementById('languageSelector');
 const storyAudio = document.getElementById('storyAudio');
 const randomStoryBtn = document.getElementById('randomStory');
 
-// Učitavanje JSON-a
-fetch('stories.json')
-  .then(response => response.json())
-  .then(data => {
-    stories = {};
-    data.forEach(story => {
-      stories[story.id] = story;
-    });
-    generateStoryList();
-  })
-  .catch(error => console.error("Error loading JSON:", error));
-
-function getStoryText(story, lang) {
-    return story.text[lang] || story.text['en'];
+// Load stories
+function loadStories() {
+    fetch('stories.json')
+    .then(res => res.json())
+    .then(data => {
+        stories = {};
+        data.forEach(story => {
+            stories[story.id] = story;
+        });
+        generateStoryList();
+    })
+    .catch(err => console.error("Error loading stories:", err));
 }
 
-function getStoryTitle(story, lang) {
-    return story.title[lang] || story.title['en'];
-}
+function getStoryText(story, lang) { return story.text[lang] || story.text['en']; }
+function getStoryTitle(story, lang) { return story.title[lang] || story.title['en']; }
 
 function generateStoryList() {
     storyList.innerHTML = '';
@@ -202,25 +187,31 @@ function generateStoryList() {
 }
 
 storyList.addEventListener('click', function(e){
-    if(e.target.tagName === 'LI'){
-        const id = e.target.dataset.story;
-        showStory(id);
-    }
+    if(e.target.tagName === 'LI') showStory(e.target.dataset.story);
 });
 
 function showStory(id){
     const story = stories[id];
+    storyContent.dataset.currentStory = id;
     storyTitle.textContent = getStoryTitle(story, currentLanguage);
-    storyText.textContent = getStoryText(story, currentLanguage);
     storyImage.src = story.img;
     storyImage.alt = getStoryTitle(story, currentLanguage);
-
     storyContent.style.display = 'block';
     storyList.style.display = 'none';
-    storyContent.dataset.currentStory = id;
-
     storyAudio.src = story.audio;
     storyAudio.play();
+
+    // Clear old text
+    storyTextDiv.innerHTML = '';
+    const paragraphs = getStoryText(story, currentLanguage).split('\n');
+    paragraphs.forEach((p, index) => {
+        setTimeout(() => {
+            const para = document.createElement('p');
+            para.className = 'storyParagraph';
+            para.textContent = p;
+            storyTextDiv.appendChild(para);
+        }, 400 * index);
+    });
 }
 
 function showList(){
@@ -232,10 +223,7 @@ function showList(){
 languageSelector.addEventListener('change', function(e){
     currentLanguage = e.target.value;
     generateStoryList();
-    if(storyContent.style.display === 'block'){
-        const id = storyContent.dataset.currentStory;
-        showStory(id);
-    }
+    if(storyContent.style.display === 'block') showStory(storyContent.dataset.currentStory);
 });
 
 randomStoryBtn.addEventListener('click', function(){
@@ -243,6 +231,8 @@ randomStoryBtn.addEventListener('click', function(){
     const randomId = ids[Math.floor(Math.random() * ids.length)];
     showStory(randomId);
 });
+
+loadStories();
 </script>
 
 </body>

@@ -1,0 +1,14 @@
+# Node modules
+node_modules/
+
+# OS datoteke
+.DS_Store
+Thumbs.db
+
+# Logovi
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build folder (ako ga imaš)
+dist/
